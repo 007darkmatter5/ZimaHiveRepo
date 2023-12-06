@@ -1,0 +1,76 @@
+name: CodeX Docs
+services:
+  CodeX Docs:
+    image: ghcr.io/codex-team/codex.docs:latest
+    container_name: CodeX Docs
+    deploy:
+      resources:
+        reservations:
+          memory: 0M
+    network_mode: bridge
+    ports:
+      - target: 3000
+        published: 3000
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: /DATA/AppData/$AppID/uploads
+        target: /usr/src/app/uploads
+      - type: volume
+        source: /DATA/AppData/$AppID/db
+        target: /usr/src/app/db
+      - type: volume
+        source: /DATA/AppData/$AppID/docs-config.yaml
+        target: /usr/src/app/docs-config.yaml
+    environment:
+      APP_CONFIG_auth_password: changeme
+    x-casaos:
+      ports:
+        - container: '3000'
+          description:
+            en_us: Port
+            zh_cn: 端口
+      volumes:
+        - container: /usr/src/app/uploads
+          description:
+            en_us: Config directory.
+            zh_cn: 配置目录
+        - container: /usr/src/app/db
+          description:
+            en_us: Config directory.
+            zh_cn: 配置目录
+        - container: /usr/src/app/docs-config.yaml
+          description:
+            en_us: Config directory.
+            zh_cn: 配置目录
+x-casaos:
+  architectures:
+    - amd64
+    - arm
+    - arm64
+  main: CodeX Docs
+  category: Documents
+  author: ZimaHiveRepo
+  developer: 007darkmatter5
+  icon: https://cdn.jsdelivr.net/gh/@main/Apps/CodeX Docs/icon.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/@main/Apps/CodeX Docs/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/@main/Apps/CodeX Docs/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/@main/Apps/CodeX Docs/screenshot-3.png
+  thumbnail: https://cdn.jsdelivr.net/gh/@main/Apps/CodeX Docs/thumbnail.png
+  description:
+    en_us: ''
+    zh_cn: ''
+  tagline:
+    en_us: ''
+    zh_cn: ''
+  title:
+    en_us: ''
+    zh_cn: ''
+  tips:
+    before_install: null
+    custom: null
+  port_map: '3000'
+  scheme: http
+  index: /
